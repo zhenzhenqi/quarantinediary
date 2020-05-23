@@ -1,0 +1,33 @@
+h1, h2, h3, h4, h5, p {
+  font-family: 'Cormorant', serif;
+  color: white;
+  text-decoration-color: white;
+}
+
+body {
+  background-color: black !important;
+  padding: 2em;
+}
+
+a {
+  font-style: italic;
+}
+
+a:hover {
+  font-style: normal;
+  text-decoration: line-through;
+  text-decoration-color: white !important;
+}
+
+#back {
+  position: fixed;
+  left: 0;
+  bottom: 2em;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 4em;
+}
