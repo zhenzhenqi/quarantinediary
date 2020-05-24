@@ -1,7 +1,11 @@
-h1, h2, h3, h4, h5, p {
+h1, h2, h3, h4, p {
   font-family: 'Cormorant', serif;
-  color: white;
-  text-decoration-color: white;
+  color: aqua;
+}
+
+h5{
+  color: rgb(255,0,240);
+  text-decoration-color: rgb(255,0,240) !important;
 }
 
 body {
@@ -11,6 +15,7 @@ body {
 
 a {
   font-style: italic;
+  color: rgb(255, 0, 240);
 }
 
 a:hover {
