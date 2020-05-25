@@ -1,12 +1,12 @@
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, h5, p {
   font-family: 'Cormorant', serif;
   color: aqua;
 
 }
 
 h5{
-  color: rgb(255,0,240);
-  text-decoration-color: rgb(255,0,240);
+  color: rgb(255,0,240) !important;
+  text-decoration-color: rgb(255,0,240) !important;
 }
 
 body {
@@ -26,7 +26,7 @@ a:hover {
 
 #back {
   position: fixed;
-  left: 0;
+  left: 2em;
   bottom: 2em;
 }
 
@@ -35,4 +35,10 @@ a:hover {
   position: fixed;
   top: 0;
   right: 0;
+}
+
+#txt{
+  position: fixed;
+  left: 5em;
+  bottom: 5em;
 }

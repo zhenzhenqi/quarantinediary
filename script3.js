@@ -1,42 +1,66 @@
-let letters = document.querySelector('#txt').innerHTML.split('');
+let charRNN;
+let textInput;
+let tempSlider;
+let startBtn;
+let resetBtn;
+let singleBtn;
+let generating = false;
 
-// Converts integer to hex
-const colToHex = (c) => {
-  // Hack so colors are bright enough
-  let color = (c < 75) ? c + 75 : c
-  let hex = color.toString(16);
-  return hex.length == 1 ? "0" + hex : hex;
+function setup() {
+  noCanvas();
+  // Create the LSTM Generator passing it the model directory
+  charRNN = ml5.charRNN('./models/bejamin/', modelReady);
+  // Grab the DOM elements
+  textInput = select('#textInput');
+  startBtn = select('#start');
+  resetBtn = select('#reset');
+  singleBtn = select('#single');
+
+  // DOM element events
+  startBtn.mousePressed(generate);
+  resetBtn.mousePressed(resetModel);
+  // singleBtn.mousePressed(predict);
 }
 
-// uses colToHex to concatenate
-// a full 6 digit hex code
-const rgbToHex = (r,g,b) => {
-  return "#" + colToHex(r) + colToHex(g) + colToHex(b);
+function windowResized() {
+  resizeCanvas(windowWidth, canvasHeight);
 }
 
-// Returns three random 0-255 integers
-const getRandomColor = () => {
-  return rgbToHex(
-    Math.floor(Math.random() * 255),
-    Math.floor(Math.random() * 255),
-    Math.floor(Math.random() * 255));
+async function modelReady() {
+  // select('#status').html('Model Loaded');
+  resetModel();
 }
 
-// This is the prototype function
-// that changes the color of each
-// letter by wrapping it in a span
-// element.
-Array.prototype.randomColor = function() {
-  let html = '';
-  this.map( (letter) => {
-    let color = getRandomColor();
-    html +=
-      "<span style=\"color:" + color + "\">"
-      + letter +
-      "</span>";
-  })
-  return html;
-};
+function resetModel() {
+  charRNN.reset();
+  const seed = select('#textInput').elt.innerHTML;
+  // console.log(seed);
+  var result = charRNN.feed(seed);
+  console.log(result);
+  select('#result').html(seed);
+}
 
-// Set the text
-document.querySelector('#txt').innerHTML = letters.randomColor();
+function generate() {
+  if (generating) {
+    generating = false;
+    startBtn.html('Start');
+  } else {
+    generating = true;
+    startBtn.html('Pause');
+    loopRNN();
+  }
+}
+
+async function loopRNN() {
+  while (generating) {
+    await predict();
+  }
+}
+
+async function predict() {
+  let par = select('#result');
+  let temperature = 0.5;
+  let next = await charRNN.predict(temperature);
+  await charRNN.feed(next.sample);
+  par.html(par.html() + next.sample);
+}

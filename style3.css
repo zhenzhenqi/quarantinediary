@@ -1,4 +1,4 @@
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, h5, p {
   font-family: 'Cormorant', serif;
   color: aqua;
 
@@ -26,7 +26,7 @@ a:hover {
 
 #back {
   position: fixed;
-  left: 0;
+  left: 2em;
   bottom: 2em;
 }
 

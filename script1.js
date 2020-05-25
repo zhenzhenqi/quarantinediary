@@ -1,42 +1,37 @@
-let letters = document.querySelector('#txt').innerHTML.split('');
+var canvas = document.getElementById('canvas'),
+    ctx = canvas.getContext('2d');
 
-// Converts integer to hex
-const colToHex = (c) => {
-  // Hack so colors are bright enough
-  let color = (c < 75) ? c + 75 : c
-  let hex = color.toString(16);
-  return hex.length == 1 ? "0" + hex : hex;
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resize();
+window.onresize = resize;
+
+function noise(ctx) {
+
+    var w = ctx.canvas.width,
+        h = ctx.canvas.height,
+        idata = ctx.createImageData(w, h),
+        buffer32 = new Uint32Array(idata.data.buffer),
+        len = buffer32.length,
+        i = 0;
+
+    for(; i < len;)
+        buffer32[i++] = ((255 * Math.random())|0) << 24;
+
+    ctx.putImageData(idata, 0, 0);
 }
 
-// uses colToHex to concatenate
-// a full 6 digit hex code
-const rgbToHex = (r,g,b) => {
-  return "#" + colToHex(r) + colToHex(g) + colToHex(b);
-}
+var toggle = true;
 
-// Returns three random 0-255 integers
-const getRandomColor = () => {
-  return rgbToHex(
-    Math.floor(Math.random() * 255),
-    Math.floor(Math.random() * 255),
-    Math.floor(Math.random() * 255));
-}
-
-// This is the prototype function
-// that changes the color of each
-// letter by wrapping it in a span
-// element.
-Array.prototype.randomColor = function() {
-  let html = '';
-  this.map( (letter) => {
-    let color = getRandomColor();
-    html +=
-      "<span style=\"color:" + color + "\">"
-      + letter +
-      "</span>";
-  })
-  return html;
-};
-
-// Set the text
-document.querySelector('#txt').innerHTML = letters.randomColor();
+// added toggle to get 30 FPS instead of 60 FPS
+(function loop() {
+    toggle = !toggle;
+    if (toggle) {
+        requestAnimationFrame(loop);
+        return;
+    }
+    noise(ctx);
+    requestAnimationFrame(loop);
+})();

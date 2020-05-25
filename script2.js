@@ -1,8 +1,3 @@
-/*
- *Pierre MARZIN, sorting pixels by different criteria,
- *and displaying them with a tween effect
- *
- */
 var rowPix=[];
 var index=[];
 var img=[];
