@@ -5,51 +5,46 @@ let startBtn;
 let resetBtn;
 let singleBtn;
 let generating = false;
+let totalLen = 3;
+let currentLen = 0;
 
 function setup() {
   noCanvas();
   // Create the LSTM Generator passing it the model directory
-  charRNN = ml5.charRNN('./models/bejamin/', modelReady);
-  // Grab the DOM elements
+  charRNN = ml5.charRNN('./models/woolf/', modelReady);
+
+  // Grab the input text
   textInput = select('#textInput');
-  startBtn = select('#start');
-  resetBtn = select('#reset');
-  singleBtn = select('#single');
-
-  // DOM element events
-  startBtn.mousePressed(generate);
-  resetBtn.mousePressed(resetModel);
-  // singleBtn.mousePressed(predict);
+  seed = select('#textInput').elt.innerHTML;
+  // const seed = select('#textInput').value();
 }
 
-function windowResized() {
-  resizeCanvas(windowWidth, canvasHeight);
-}
 
 async function modelReady() {
   // select('#status').html('Model Loaded');
-  resetModel();
+  kickoff();
+}
+
+function kickoff() {
+  setTimeout(generate, 1000);
 }
 
 function resetModel() {
   charRNN.reset();
-  const seed = select('#textInput').elt.innerHTML;
-  // console.log(seed);
-  var result = charRNN.feed(seed);
-  console.log(result);
+  const seed = select('#textInput').value();
+  charRNN.feed(seed);
   select('#result').html(seed);
 }
 
 function generate() {
   if (generating) {
     generating = false;
-    startBtn.html('Start');
   } else {
     generating = true;
-    startBtn.html('Pause');
     loopRNN();
   }
 }
+
 
 async function loopRNN() {
   while (generating) {
@@ -58,9 +53,16 @@ async function loopRNN() {
 }
 
 async function predict() {
+  // console.log("predict");
   let par = select('#result');
   let temperature = 0.5;
   let next = await charRNN.predict(temperature);
   await charRNN.feed(next.sample);
   par.html(par.html() + next.sample);
+  if(next.sample=="."){
+    currentLen++;
+  }
+  if(currentLen >= totalLen){
+    generating = false;
+  }
 }
