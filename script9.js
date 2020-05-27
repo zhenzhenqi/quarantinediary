@@ -1,13 +1,14 @@
 var blobs = []
 
 function setup() {
-  createCanvas(400, 400);
+  var cnv = createCanvas(400, 400);
+  cnv.parent('myCanvas');
   // colorMode(HSB);
   for (i = 0; i < 10; i++) blobs.push(new Blob(random(0, width), random(0, height)));
 }
 
 function draw() {
-  background(0);
+  background(45, 45, 45);
 
   loadPixels();
   for (x = 0; x < width; x++) {
@@ -17,8 +18,9 @@ function draw() {
         let xdif = x - blobs[i].x;
         let ydif = y - blobs[i].y;
         let d = sqrt((xdif * xdif) + (ydif * ydif));
-        sum += 10 * blobs[i].r / d;
+        sum += 18 * blobs[i].r / d;
       }
+      // set(x, y, color(sum, 255, 255));
       set(x, y, color(sum, sum, sum));
     }
   }
@@ -35,8 +37,8 @@ class Blob {
     this.x = x;
     this.y = y;
     let angle = random(0, 2 * PI);
-    this.xspeed = random(2, 5) * Math.cos(angle);
-    this.yspeed = random(2, 5) * Math.sin(angle);
+    this.xspeed = random(1, 3) * Math.cos(angle);
+    this.yspeed = random(1, 3) * Math.sin(angle);
     this.r = random(120, 240);
   }
 
