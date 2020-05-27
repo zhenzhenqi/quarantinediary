@@ -5,13 +5,13 @@ h1, h2, h3, h4, h5, p {
 }
 
 h5{
-  color: rgb(255,0,240);
-  text-decoration-color: rgb(255,0,240);
+  color: rgb(255,0,240) !important;
+  text-decoration-color: rgb(255,0,240) !important;
 }
 
 body {
   background-color: black !important;
-  padding: 5em;
+  padding: 0;
 }
 
 a {
@@ -31,6 +31,14 @@ a:hover {
 }
 
 
-.text{
-  text-indent: 4em;
+#myContainer{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#txt{
+  position: fixed;
+  right: 10%;
+  bottom: 20%;
 }

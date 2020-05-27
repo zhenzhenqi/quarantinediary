@@ -1,0 +1,40 @@
+h1, h2, h3, h4, h5, p {
+  font-family: 'Cormorant', serif;
+  color: aqua;
+
+}
+
+h5{
+  color: rgb(255,0,240);
+  text-decoration-color: rgb(255,0,240);
+}
+
+body {
+  background-color: black !important;
+  padding: 5em;
+}
+
+a {
+  font-style: italic;
+}
+
+a:hover {
+  font-style: normal;
+  text-decoration: line-through;
+  text-decoration-color: white !important;
+}
+
+#back {
+  position: fixed;
+  left: 2em;
+  bottom: 2em;
+}
+
+
+.text{
+  text-indent: 4em;
+}
+
+#textInput{
+  margin-top: 20%;
+}

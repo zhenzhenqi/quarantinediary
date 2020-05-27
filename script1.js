@@ -1,15 +1,15 @@
-var canvas = document.getElementById('canvas'),
-    ctx = canvas.getContext('2d');
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
 
 function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
+
 resize();
 window.onresize = resize;
 
 function noise(ctx) {
-
     var w = ctx.canvas.width,
         h = ctx.canvas.height,
         idata = ctx.createImageData(w, h),
