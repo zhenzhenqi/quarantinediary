@@ -1,16 +1,15 @@
 h1, h2, h3, h4, h5, p {
   font-family: 'Cormorant', serif;
   color: aqua;
-
 }
 
-h5{
-  color: rgb(255,0,240) !important;
-  text-decoration-color: rgb(255,0,240) !important;
+h5 {
+  color: rgb(255, 0, 240) !important;
+  text-decoration-color: rgb(255, 0, 240) !important;
 }
 
 body {
-  background-color: rgb(150, 150, 150)!important;
+  background-color: rgb(150, 150, 150) !important;
   padding: 0;
 }
 
@@ -30,18 +29,18 @@ a:hover {
   bottom: 2em;
 }
 
-
-#myCanvas{
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+#myContainer {
+  padding-top: 10%;
+  margin: auto;
 }
 
-#txt{
-  position: fixed;
-  right: 10%;
-  bottom: 20%;
+#txt {
+  width: 50%;
+  text-align: center;
+  /* position: fixed;
+  right: 4em; */
+  padding-top: 2em;
+  margin: auto;
+  /* bottom: 10%; */
+  z-index: 1;
 }

@@ -1,9 +1,10 @@
+console.log("script9");
 var blobs = []
 
 function setup() {
-  var cnv = createCanvas(400, 400);
-  cnv.parent('myCanvas');
-  // colorMode(HSB);
+  let cnv = createCanvas(400, 400);
+  cnv.parent(myContainer);
+
   for (i = 0; i < 10; i++) blobs.push(new Blob(random(0, width), random(0, height)));
 }
 

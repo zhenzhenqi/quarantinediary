@@ -1,0 +1,66 @@
+h1, h2, h3, h4, h5, p{
+  font-family: 'Cormorant', serif;
+  color: white;
+  text-decoration-color: white;
+}
+
+h5{
+  color: rgb(255,0,240) !important;
+  text-decoration-color: rgb(255,0,240) !important;
+}
+
+/* canvas{
+  top: 0;
+  left: 0;
+	width: 100vw;
+	height: 100vh;
+  position: fixed;
+  z-index: -1;
+} */
+
+body{
+  padding: 2em;
+  background: linear-gradient(-60deg, #FF3333, #33FF6D, #141C26, #A69E97);
+	background-size: 180% 180%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+a{
+  font-style: italic;
+}
+
+a:hover{
+  font-style: normal;
+  text-decoration:line-through;
+  text-decoration-color: white !important;
+}
+
+div{
+  padding-bottom: 2em;
+}
+
+
+#back {
+  position: fixed;
+  left: 2em;
+  bottom: 2em;
+}
+
+#about {
+  position: fixed;
+  right: 2em;
+  bottom: 0;
+  color: white;
+}
