@@ -1,9 +1,12 @@
-h1, h2, h3, h4, h5, p {
-  font-family: 'Cormorant', serif;
-  color: aqua;
+h1, h2, h3, h4, p {
+  font-family: sans-serif;
+  color: red;
+  -webkit-text-stroke: 1px white;
+  font-weight: 900 !important;
 }
 
 h5{
+  font-family: 'Cormorant', serif;
   color: rgb(255,0,240) !important;
   text-decoration-color: rgb(255,0,240) !important;
 }
@@ -38,8 +41,7 @@ a:hover {
 }
 
 #txt{
-  text-align: center;
-  position: fixed;
-  right: 8em;
-  bottom: 8em;
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
