@@ -1,15 +1,14 @@
 var elem = document.getElementById("txt");
-var elemX = window.height/2;
+var elemX = window.innerHeight/2;
 
-window.onload = function() {
-  setInterval(frame, 500);
-};
+// window.onload = function() {
+//   setInterval(frame, 500);
+// };
 
 function frame() {
-
-      // elem.style.top = pos + "px";
-
-      elem.style.top = window.Width/2 + "px";
+      elemX = elemX-5;
+      elem.style.left = elemX + "px";
+      // elem.style.top = window.Width/2 + "px";
 }
 
 var img;
@@ -46,8 +45,7 @@ function setup() {
 }
 
 function draw() {
-  elemX = elemX-5;
-  elem.style.left = elemX + "px";
+  frame();
 
   textSize(40);
   fill(random(0, 100), 255, 120);
