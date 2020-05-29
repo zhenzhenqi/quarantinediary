@@ -99,8 +99,8 @@ function init() {
       }),
       alpha: 0.1,
       sunDirection: light.position.clone().normalize(),
-      sunColor: 0xa80068,
-      waterColor: 0x26ba41,
+      sunColor: 0xffe2a8,
+      waterColor: 0xa8feff,
       distortionScale: 0.5,
       fog: scene.fog !== undefined
     }
@@ -181,8 +181,8 @@ function onWindowResize() {
 
 function onDocumentMouseMove(event) {
 
-  mouseX = (event.clientX - windowHalfX) * 10;
-  mouseY = (event.clientY - windowHalfY) * 10;
+  mouseX = (event.clientX - windowHalfX);
+  mouseY = (event.clientY - windowHalfY);
 
 }
 
@@ -195,7 +195,9 @@ function animate() {
 function render() {
   camera.position.x += (mouseX - camera.position.x) * .05;
   camera.position.y += (-mouseY - camera.position.y) * .05;
+  camera.position.y = Math.max(camera.position.y, 10);
 
+  // console.log(camera.position.y);
   camera.lookAt(scene.position);
 
   var time = Date.now() * 0.001;
