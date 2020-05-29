@@ -1,30 +1,60 @@
-var elem = document.getElementById("txt");
-var elemX = window.innerHeight/2;
+let danmuSampleDOM = document.getElementById("txt");
+// let elemX = window.innerHeight / 2;
+let danmuDOMlist = [];
+let leftOffsets = [];
+let danmuCount = 9;
+
 
 // window.onload = function() {
 //   setInterval(frame, 500);
 // };
 
-function frame() {
-      elemX = elemX-5;
-      elem.style.left = elemX + "px";
-      // elem.style.top = window.Width/2 + "px";
+function initDanmus() {
+  //put existing danmu into list
+  danmuDOMlist.push(danmuSampleDOM);
+  //existing danmu's random xleft value
+  leftOffsets.push(random(windowWidth + random(0, 20)));
+  for (let i = 0; i < danmuCount; i++) {
+    let newDanmuDOM = danmuSampleDOM.cloneNode(true);
+    danmuDOMlist.push(newDanmuDOM);
+    newDanmuDOM.style.top = random(0, windowHeight) + "px";
+    document.getElementById("danmus").appendChild(newDanmuDOM);
+    leftOffsets.push(random(windowWidth + random(0, 20)));
+  }
+
+}
+function updateDanmus() {
+  for (let i = 0; i < danmuDOMlist.length; i++) {
+    leftOffsets[i] -= 5;
+    danmuDOMlist[i].style.left = leftOffsets[i] + "px";
+    if (leftOffsets[i] < -300) {
+      //reset y
+      leftOffsets[i] = windowWidth;
+      //reset x
+      danmuDOMlist[i].style.top = random(0, windowHeight);
+    }
+  }
+
+  // elemX = elemX - 5;
+  // danmuDOM.style.left = elemX + "px";
+  // elem.style.top = window.Width/2 + "px";
 }
 
-var img;
-var xpos;
-var ypos;
-var xdir;
-var ydir;
-var speed;
-var scale;
-var txt;
+let img;
+let xpos;
+let ypos;
+let xdir;
+let ydir;
+let speed;
+let scale;
+let txt;
 
 function preload() {
   img = loadImage("/images/check.jpg");
 }
 
 function setup() {
+
   colorMode(HSB, 100, 255);
   rectMode(CENTER);
 
@@ -42,10 +72,12 @@ function setup() {
   xpos = 28;
   ypos = 0;
 
+  initDanmus();
+
 }
 
 function draw() {
-  frame();
+  updateDanmus();
 
   textSize(40);
   fill(random(0, 100), 255, 120);
@@ -64,19 +96,19 @@ function draw() {
     speed += 1;
   }
 
-  if (xpos > window.width - img.width*scale | xpos < 0) {
+  if (xpos > window.width - img.width * scale | xpos < 0) {
     xdir *= -1;
   }
 
-  if (ypos > window.height - img.height*scale | ypos < 0) {
+  if (ypos > window.height - img.height * scale | ypos < 0) {
     ydir *= -1;
   }
 }
 
 class Txt {
   constructor() {
-    this.xloc = windowWidth/2;
-    this.yloc = windowHeight/2;
+    this.xloc = windowWidth / 2;
+    this.yloc = windowHeight / 2;
     this.msg = "this is a test";
     // let angle = random(0, 2 * PI);
     // this.xspeed = -1*random(40, 60);
@@ -87,7 +119,7 @@ class Txt {
   update() {
     this.xloc += this.xspeed;
     // this.y += this.yspeed;
-    if (this.xloc <-100 ) this.xloc = windowWidth + 100;
+    if (this.xloc < -100) this.xloc = windowWidth + 100;
   }
 
   display() {

@@ -44,4 +44,5 @@ a:hover {
   position: absolute;
   left: 50%;
   top: 50%;
+  white-space: nowrap;
 }
