@@ -1,146 +1,121 @@
-let danmuSampleDOM = document.getElementById("txt");
-// let elemX = window.innerHeight / 2;
-let danmuDOMlist = [];
-let leftOffsets = [];
-let danmuCount = 9;
+var camera, scene, renderer;
+var mesh;
+var AMOUNT = 6;
 
+init();
+animate();
 
-// window.onload = function() {
-//   setInterval(frame, 500);
-// };
+function init() {
 
-function initDanmus() {
-  //put existing danmu into list
-  danmuDOMlist.push(danmuSampleDOM);
-  //existing danmu's random xleft value
-  leftOffsets.push(random(windowWidth + random(0, 20)));
-  for (let i = 0; i < danmuCount; i++) {
-    let newDanmuDOM = danmuSampleDOM.cloneNode(true);
-    danmuDOMlist.push(newDanmuDOM);
-    newDanmuDOM.style.top = random(0, windowHeight) + "px";
-    document.getElementById("danmus").appendChild(newDanmuDOM);
-    leftOffsets.push(random(windowWidth + random(0, 20)));
-  }
+  var ASPECT_RATIO = window.innerWidth / window.innerHeight;
 
-}
-function updateDanmus() {
-  for (let i = 0; i < danmuDOMlist.length; i++) {
-    leftOffsets[i] -= 5;
-    danmuDOMlist[i].style.left = leftOffsets[i] + "px";
-    if (leftOffsets[i] < -300) {
-      //reset y
-      leftOffsets[i] = windowWidth;
-      //reset x
-      danmuDOMlist[i].style.top = random(0, windowHeight);
+  var WIDTH = (window.innerWidth / AMOUNT) * window.devicePixelRatio;
+  var HEIGHT = (window.innerHeight / AMOUNT) * window.devicePixelRatio;
+
+  var cameras = [];
+
+  for (var y = 0; y < AMOUNT; y++) {
+
+    for (var x = 0; x < AMOUNT; x++) {
+
+      var subcamera = new THREE.PerspectiveCamera(40, ASPECT_RATIO, 0.1, 10);
+      subcamera.viewport = new THREE.Vector4(Math.floor(x * WIDTH), Math.floor(y * HEIGHT), Math.ceil(WIDTH), Math.ceil(HEIGHT));
+      subcamera.position.x = (x / AMOUNT) - 0.5;
+      subcamera.position.y = 0.5 - (y / AMOUNT);
+      subcamera.position.z = 1.5;
+      subcamera.position.multiplyScalar(2);
+      subcamera.lookAt(0, 0, 0);
+      subcamera.updateMatrixWorld();
+      cameras.push(subcamera);
+
     }
+
   }
 
-  // elemX = elemX - 5;
-  // danmuDOM.style.left = elemX + "px";
-  // elem.style.top = window.Width/2 + "px";
+  camera = new THREE.ArrayCamera(cameras);
+  camera.position.z = 3;
+
+  scene = new THREE.Scene();
+
+  scene.add(new THREE.AmbientLight(0x222244));
+
+  var light = new THREE.DirectionalLight();
+  light.position.set(0.5, 0.5, 1);
+  light.castShadow = true;
+  light.shadow.camera.zoom = 4; // tighter shadow map
+  scene.add(light);
+
+  var geometry = new THREE.PlaneBufferGeometry(100, 100);
+  var material = new THREE.MeshPhongMaterial({
+    color: 0x000066
+  });
+
+  var background = new THREE.Mesh(geometry, material);
+  background.receiveShadow = true;
+  background.position.set(0, 0, -1);
+  scene.add(background);
+
+  var geometry = new THREE.CylinderBufferGeometry(0.5, 0.5, 1, 32);
+  var material = new THREE.MeshPhongMaterial({
+    color: 0xff0000
+  });
+
+  mesh = new THREE.Mesh(geometry, material);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  scene.add(mesh);
+
+  renderer = new THREE.WebGLRenderer();
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.shadowMap.enabled = true;
+  document.body.appendChild(renderer.domElement);
+
+  //
+
+  window.addEventListener('resize', onWindowResize, false);
+
 }
 
-let img;
-let xpos;
-let ypos;
-let xdir;
-let ydir;
-let speed;
-let scale;
-let txt;
+function onWindowResize() {
 
-function preload() {
-  img = loadImage("/images/check.jpg");
-}
+  var ASPECT_RATIO = window.innerWidth / window.innerHeight;
+  var WIDTH = (window.innerWidth / AMOUNT) * window.devicePixelRatio;
+  var HEIGHT = (window.innerHeight / AMOUNT) * window.devicePixelRatio;
 
-function setup() {
+  camera.aspect = ASPECT_RATIO;
+  camera.updateProjectionMatrix();
 
-  colorMode(HSB, 100, 255);
-  rectMode(CENTER);
+  for (var y = 0; y < AMOUNT; y++) {
 
-  stroke(255, 0, 255);
+    for (var x = 0; x < AMOUNT; x++) {
 
-  let cnv = createCanvas(windowWidth, windowHeight);
-  cnv.parent('myContainer');
-  background(0);
+      var subcamera = camera.cameras[AMOUNT * y + x];
 
-  txt = new Txt();
-  xdir = 1;
-  ydir = 1;
-  scale = 0.5;
-  speed = 40;
-  xpos = 28;
-  ypos = 0;
+      subcamera.viewport.set(
+        Math.floor(x * WIDTH),
+        Math.floor(y * HEIGHT),
+        Math.ceil(WIDTH),
+        Math.ceil(HEIGHT));
 
-  initDanmus();
+      subcamera.aspect = ASPECT_RATIO;
+      subcamera.updateProjectionMatrix();
+
+    }
+
+  }
+
+  renderer.setSize(window.innerWidth, window.innerHeight);
 
 }
 
-function draw() {
-  updateDanmus();
+function animate() {
 
-  textSize(40);
-  fill(random(0, 100), 255, 120);
-  stroke(255, 0, 255);
-  strokeWeight(4);
+  mesh.rotation.x += 0.005;
+  mesh.rotation.z += 0.01;
 
-  // txt.update();
-  // txt.display();
-  // console.log(txt);
-  tint(random(0, 255), random(0, 255), random(50, 200), 50);
-  image(img, xpos, ypos, img.width * scale, img.height * scale);
-  if (frameCount % 19 == 0) {
-    // text("how much does it cost to fix everything?", random(0, windowWidth), random(0, windowHeight));
-    xpos += xdir * speed;
-    ypos += ydir * speed;
-    speed += 1;
-  }
+  renderer.render(scene, camera);
 
-  if (xpos > window.width - img.width * scale | xpos < 0) {
-    xdir *= -1;
-  }
+  requestAnimationFrame(animate);
 
-  if (ypos > window.height - img.height * scale | ypos < 0) {
-    ydir *= -1;
-  }
 }
-
-class Txt {
-  constructor() {
-    this.xloc = windowWidth / 2;
-    this.yloc = windowHeight / 2;
-    this.msg = "this is a test";
-    // let angle = random(0, 2 * PI);
-    // this.xspeed = -1*random(40, 60);
-    this.xspeed = -5;
-    // this.yspeed = random(1, 3);
-  }
-
-  update() {
-    this.xloc += this.xspeed;
-    // this.y += this.yspeed;
-    if (this.xloc < -100) this.xloc = windowWidth + 100;
-  }
-
-  display() {
-    text(this.msg, this.xloc, this.yloc);
-  }
-}
-
-// class Jitter {
-//   constructor() {
-//     this.x = random(width);
-//     this.y = random(height);
-//     this.diameter = random(10, 30);
-//     this.speed = 1;
-//   }
-//
-//   move() {
-//     this.x += random(-this.speed, this.speed);
-//     this.y += random(-this.speed, this.speed);
-//   }
-//
-//   display() {
-//     ellipse(this.x, this.y, this.diameter, this.diameter);
-//   }
-// }
