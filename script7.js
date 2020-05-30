@@ -179,11 +179,12 @@ function animate() {
 }
 
 function render() {
-  camera.position.x += (-mouseX*7 - camera.position.x)* 0.5;
-  camera.position.y += (-mouseY - camera.position.y) * .03;
+  camera.position.x += (-mouseX*7 - camera.position.x) * 0.5;
+  camera.position.y += (-mouseY - camera.position.y) * 0.02;
   camera.position.y = Math.max(camera.position.y, 1);
+  // camera.position.y = Math.min(camera.position.y, 0.5);
 
-  // console.log(camera.position.y);
+  console.log(camera.position.y);
   camera.lookAt(scene.position);
 
   var time = Date.now() * 0.001;
