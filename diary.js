@@ -5,7 +5,7 @@ let startBtn;
 let resetBtn;
 let singleBtn;
 let generating = false;
-let totalLen = 3;
+let totalLen = 6;
 let currentLen = 0;
 
 function setup() {
