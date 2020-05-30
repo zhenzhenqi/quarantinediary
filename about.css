@@ -1,0 +1,58 @@
+h1, h2, h3, h4, h5{
+  font-family: 'Cormorant', serif;
+  color: white;
+  text-decoration-color: white;
+  padding-bottom: 10px;
+}
+
+h5{
+  color: rgb(255,0,240) !important;
+  text-decoration-color: rgb(255,0,240) !important;
+}
+
+p, h4{
+  color: white;
+}
+
+canvas{
+  top: 0;
+  left: 0;
+	width: 100vw;
+	height: 100vh;
+  position: fixed;
+  z-index: -1;
+}
+
+body{
+	background-color: black;
+  padding: 2em;
+}
+
+a{
+  font-style: italic;
+  color: white !important;
+}
+
+a:hover{
+  font-style: normal;
+  text-decoration:line-through;
+  text-decoration-color: white !important;
+}
+
+div{
+  padding: 2em;
+}
+
+
+#back {
+  position: fixed;
+  left: 2em;
+  bottom: 2em;
+}
+
+#about {
+  position: fixed;
+  right: 2em;
+  bottom: 0;
+  color: white;
+}
