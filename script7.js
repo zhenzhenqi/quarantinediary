@@ -31,7 +31,7 @@ animate();
 
 function init() {
   //bg cube
-  var path = "./three/textures/skybox_sunset/";
+  var path = "./three/textures/skybox_hell/";
   var format = '.png';
   var urls = [
     path + 'px' + format, path + 'nx' + format,
@@ -55,12 +55,12 @@ function init() {
     fragmentShader: shader.fragmentShader
   });
 
-  for (var i = 0; i < 500; i++) {
+  for (var i = 0; i < 100; i++) {
     var mesh = new THREE.Mesh(geometry, material);
     mesh.position.x = Math.random() * 10000 - 5000;
-    mesh.position.y = Math.random() * 10000 - 5000;
+    mesh.position.y = Math.random();
     mesh.position.z = Math.random() * 10000 - 5000;
-    mesh.scale.x = mesh.scale.y = mesh.scale.z = Math.random() * 0.1 + 1;
+    mesh.scale.x = mesh.scale.y = mesh.scale.z = Math.random() + 0.3;
     scene.add(mesh);
     spheres.push(mesh);
   }
@@ -82,7 +82,7 @@ function init() {
   camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 100000);
   camera.position.z = 3200;
 
-  light = new THREE.DirectionalLight(0xff1a00, 0.8);
+  light = new THREE.DirectionalLight(0x94000a, 0.8);
   scene.add(light);
 
 
@@ -97,10 +97,10 @@ function init() {
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 
       }),
-      alpha: 0.1,
+      alpha: 1,
       sunDirection: light.position.clone().normalize(),
-      sunColor: 0xffe2a8,
-      waterColor: 0xa8feff,
+      sunColor: 0x94000a,
+      waterColor: 0x000000,
       distortionScale: 0.5,
       fog: scene.fog !== undefined
     }
@@ -182,7 +182,7 @@ function onWindowResize() {
 function onDocumentMouseMove(event) {
 
   mouseX = (event.clientX - windowHalfX);
-  mouseY = (event.clientY - windowHalfY);
+  // mouseY = (event.clientY - windowHalfY);
 
 }
 
@@ -205,7 +205,7 @@ function render() {
 
   for (var i = 0, il = spheres.length; i < il; i++) {
     var sphere = spheres[i];
-    sphere.position.y = Math.sin(time + i) * 20 + i;
+    sphere.position.y = Math.sin(time + i*3) * 20 + i*3;
     // sphere.position.x = Math.cos(time + i);
 
     // sphere.position.x = 100 * Math.cos( time + i );
