@@ -11,7 +11,7 @@ let currentLen = 0;
 function setup() {
   noCanvas();
   // Create the LSTM Generator passing it the model directory
-  charRNN = ml5.charRNN('./models/input/', modelReady);
+  charRNN = ml5.charRNN('./models/woolf', modelReady);
 
   // Grab the input text
   textInput = select('#textInput');
