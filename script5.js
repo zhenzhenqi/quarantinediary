@@ -1,44 +1,66 @@
-let danmuSampleDOM = document.getElementById("txt");
-// let elemX = window.innerHeight / 2;
+let danmuSampleDOM = document.getElementById("txt1");
 let danmuDOMlist = [];
+let emosDOMlist = [];
 let leftOffsets = [];
-let danmuCount = 9;
+let totalDanmu = 8;
+let emos = ["Q.Q", "(╯°□°）╯︵ ┻━┻", "_____", "orz", "(-_-メ)", "(°◇°)", "(-_-;)", "●～*"];
 
 
-// window.onload = function() {
-//   setInterval(frame, 500);
-// };
+// function create
 
 function initDanmus() {
   //put existing danmu into list
   danmuDOMlist.push(danmuSampleDOM);
+  // console.log(danmuSampleDOM);
+
   //existing danmu's random xleft value
   leftOffsets.push(random(windowWidth + random(0, 20)));
-  for (let i = 0; i < danmuCount; i++) {
+  for (let i = 0; i < totalDanmu; i++) {
     let newDanmuDOM = danmuSampleDOM.cloneNode(true);
+    // if (i % 3 != 0) {
+    //   let emosIndex = Math.floor(Math.random() * Math.floor(emos.length));
+    //   console.log(emosIndex);
+    //   newDanmuDOM.innerHTML = "How much does it cost to fix " + emos[emosIndex] + "?";
+    //   newDanmuDOM.style.color = "white";
+    // }
     danmuDOMlist.push(newDanmuDOM);
-    newDanmuDOM.style.top = random(30, windowHeight-200) + "px";
+    newDanmuDOM.style.top = random(20, windowHeight - 200) + "px";
     document.getElementById("danmus").appendChild(newDanmuDOM);
-    leftOffsets.push(random(windowWidth + random(0, 583)));
+    leftOffsets.push(random(windowWidth + random(0, 50)));
   }
 }
+
+
+function initEmos() {
+  for (let i = 0; i < emos.length; i++) {
+
+    // let emosIndex = Math.floor(Math.random() * Math.floor(emos.length));
+    // console.log(emosIndex);
+    let newDanmuDOM = danmuSampleDOM.cloneNode(true);
+    newDanmuDOM.innerHTML = "How much does it cost to fix " + emos[i] + "?";
+    newDanmuDOM.style.color = "white";
+    danmuDOMlist.push(newDanmuDOM);
+    newDanmuDOM.style.top = random(30, windowHeight - 200) + "px";
+    document.getElementById("danmus").appendChild(newDanmuDOM);
+    leftOffsets.push(random(windowWidth + random(0, 50)));
+  }
+}
+
 
 function updateDanmus() {
   for (let i = 0; i < danmuDOMlist.length; i++) {
     leftOffsets[i] -= 2;
     danmuDOMlist[i].style.left = leftOffsets[i] + "px";
-    if (leftOffsets[i] < -300) {
+    if (leftOffsets[i] < -600) {
       //reset y
       leftOffsets[i] = windowWidth;
       //reset x
-      danmuDOMlist[i].style.top = random(0, windowHeight);
+      danmuDOMlist[i].style.top = random(30, windowHeight - 200) + "px";
     }
   }
-
-  // elemX = elemX - 5;
-  // danmuDOM.style.left = elemX + "px";
-  // elem.style.top = window.Width/2 + "px";
 }
+
+
 
 let img;
 let xpos;
@@ -67,11 +89,12 @@ function setup() {
   xdir = 1;
   ydir = 1;
   scale = 0.5;
-  speed = 20;
+  speed = 23;
   xpos = 28;
   ypos = 0;
 
   initDanmus();
+  initEmos();
 
 }
 
@@ -92,7 +115,7 @@ function draw() {
     // text("how much does it cost to fix everything?", random(0, windowWidth), random(0, windowHeight));
     xpos += xdir * speed;
     ypos += ydir * speed;
-    speed += 1;
+    speed += 1.1;
   }
 
   if (xpos > window.width - img.width * scale | xpos < 0) {
@@ -126,20 +149,6 @@ class Txt {
   }
 }
 
-// class Jitter {
-//   constructor() {
-//     this.x = random(width);
-//     this.y = random(height);
-//     this.diameter = random(10, 30);
-//     this.speed = 1;
-//   }
-//
-//   move() {
-//     this.x += random(-this.speed, this.speed);
-//     this.y += random(-this.speed, this.speed);
-//   }
-//
-//   display() {
-//     ellipse(this.x, this.y, this.diameter, this.diameter);
-//   }
-// }
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}

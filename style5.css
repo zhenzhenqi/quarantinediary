@@ -1,6 +1,6 @@
 h1, h2, h3, h4, p {
   font-family: sans-serif;
-  color: white;
+  /* color: white; */
   -webkit-text-stroke: 1px black;
   font-weight: 900 !important;
 }
@@ -40,9 +40,14 @@ a:hover {
   height: 100%;
 }
 
-#txt{
+#txt1{
   position: absolute;
-  left: 50%;
-  top: 50%;
   white-space: nowrap;
+  color: yellow;
+}
+
+#txt2{
+  position: absolute;
+  white-space: nowrap;
+  color: white;
 }
