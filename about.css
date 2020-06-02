@@ -33,6 +33,8 @@ a{
   color: white !important;
 }
 
+
+
 a:hover{
   font-style: normal;
   text-decoration:line-through;

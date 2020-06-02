@@ -1,7 +1,7 @@
 h1, h2, h3, h4, h5, p{
   font-family: 'Cormorant', serif;
-  color: white;
-  text-decoration-color: white;
+  /* color: white; */
+  /* text-decoration-color: white; */
 }
 
 h5{
@@ -39,12 +39,15 @@ body{
 
 a{
   font-style: italic;
+  color: white;
 }
 
 a:hover{
   font-style: normal;
-  text-decoration:line-through;
-  text-decoration-color: white !important;
+}
+
+a:visited {
+  color: hotpink;
 }
 
 div{

@@ -109,7 +109,7 @@ function draw() {
   // txt.update();
   // txt.display();
   // console.log(txt);
-  tint(random(0, 255), 255, 50, 255);
+  tint(random(0, 255), 200, 100, 255);
   image(img, xpos, ypos, img.width * scale, img.height * scale);
   if (frameCount % 13 == 0) {
     // text("how much does it cost to fix everything?", random(0, windowWidth), random(0, windowHeight));
