@@ -2,7 +2,7 @@ let danmuSampleDOM = document.getElementById("txt1");
 let danmuDOMlist = [];
 let emosDOMlist = [];
 let leftOffsets = [];
-let totalDanmu = 8;
+let totalDanmu = 5;
 let emos = ["Q.Q", "(╯°□°）╯︵ ┻━┻", "_____", "orz", "(-_-メ)", "(°◇°)", "(-_-;)", "●～*"];
 
 
