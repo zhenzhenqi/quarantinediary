@@ -76,7 +76,7 @@ function preload() {
 }
 
 function setup() {
-  colorMode(HSB, 100, 255);
+  colorMode(HSB, 255, 255);
   rectMode(CENTER);
   background(240, 100, 100);
   // stroke(255, 0, 255);
@@ -109,7 +109,7 @@ function draw() {
   // txt.update();
   // txt.display();
   // console.log(txt);
-  tint(random(0, 255), 200, 100, 255);
+  tint(random(0, 255), 100, 200, 255);
   image(img, xpos, ypos, img.width * scale, img.height * scale);
   if (frameCount % 13 == 0) {
     // text("how much does it cost to fix everything?", random(0, windowWidth), random(0, windowHeight));

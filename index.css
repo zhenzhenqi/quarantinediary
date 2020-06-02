@@ -21,7 +21,7 @@ h5{
 body{
   padding: 2em;
   background: linear-gradient(-60deg, #FF3333, #33FF6D, #141C26, #A69E97);
-	background-size: 180% 180%;
+	background-size: 180% 220%;
 	animation: gradient 15s ease infinite;
 }
 
