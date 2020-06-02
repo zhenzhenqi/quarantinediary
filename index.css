@@ -44,6 +44,7 @@ a{
 
 a:hover{
   font-style: normal;
+  color: white;
 }
 
 a:visited {
