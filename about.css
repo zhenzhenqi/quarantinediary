@@ -28,9 +28,10 @@ body{
   padding: 2em;
 }
 
-a{
+a {
   font-style: italic;
   color: white !important;
+  text-decoration: underline;
 }
 
 
