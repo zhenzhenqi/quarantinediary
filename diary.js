@@ -5,7 +5,7 @@ let startBtn;
 let resetBtn;
 let singleBtn;
 let generating = false;
-let totalLen = 6;
+let totalLen = 5;
 let currentLen = 0;
 
 function setup() {
@@ -55,7 +55,7 @@ async function loopRNN() {
 async function predict() {
   // console.log("predict");
   let par = select('#result');
-  let temperature = 0.5;
+  let temperature = 1;
   let next = await charRNN.predict(temperature);
   await charRNN.feed(next.sample);
   par.html(par.html() + next.sample);
